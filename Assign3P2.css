@@ -16,10 +16,7 @@ form
 input[type=text] {
     margin-left:125px;
 }
-input[type=submit] {
-   background-color: #95ADAD;
-   border-width:3px;
-   border-color: #95ADAD;
+input[type=button] {
    font-weight: bold;
    text-align:right;
 } 
@@ -32,7 +29,6 @@ div {
 }
 div.box {
   margin-left: 3%;
-  height: 100px;
   background-color: #CAD6D6;
   display:inline-block;
   clear:both;

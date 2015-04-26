@@ -14,8 +14,8 @@
     </form>
 
     <form id = "form2" action="" method="post">
-         <input type="text" name="search">
-         <input type="submit" value="Fetch Gists">
+         <input type="text" name="input">
+         <input type="button" value="Fetch Gists" onclick="saveInput()">
     </form><br><br><br>
 
     <div id="gisttext">
@@ -28,10 +28,14 @@
 
     <div class="box" id="gist">
         <p>This div id if "gist"</p>
+        <ul id="gistlist">
+        </ul>
     </div>
 
     <div class ="box" id="fave-gists">
         <p>This div id is "fave-gist"</p>
+        <ul id ="favegistlist">
+        </ul>
     </div>
 
 </body>
