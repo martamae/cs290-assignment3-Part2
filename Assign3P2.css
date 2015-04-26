@@ -38,10 +38,27 @@ div.box {
   border-right-width: 5px;
   border-color: #CAD6D6;
   font-size:0.8em;
+  height:auto;
 } 
+div.box > p {
+    font-size:0.9em;
+    padding-bottom:0;
+    margin-bottom:0;
+}
 #gisttext {
    float:left; 
 }  
 #gist {
    float:left; 
 }  
+ul 
+{
+    padding-left: 0;
+    border-width: 1.25px;
+    border-bottom-style:solid;
+    padding-bottom:7px;
+    padding-top:3px;
+}
+li {
+    list-style-type:none;
+}

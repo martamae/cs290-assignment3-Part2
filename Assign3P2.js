@@ -27,6 +27,18 @@ var generateGistHtml = function (gist) {
     var description = gist.description;
     var url = gist.url;
 
+    //Create list
+    var ul = document.getElementById('gistlist');
+    var ulChild = document.createElement('ul');
+    ulChild.id = id;
+    var liDesc = document.createElement('li');
+    liDesc.innerText = description;
+    var liURL = document.createElement('li');
+    liURL.innerText = url;
+    ulChild.appendChild(liDesc);
+    ulChild.appendChild(liURL);
+    ul.appendChild(ulChild);
+
     //gist will have the entire gist data that comes from the api,
     // for the details check my pinned discussion about understanding JSON
     //Add a button (code above goes here) next to each element and save
@@ -35,14 +47,12 @@ var generateGistHtml = function (gist) {
     // over originalGistList to find the appropriate gist and returns it.
     //This function will be used in the previous step function (fetchData)
 }
-
+    
 var findById = function(id) {
 	//iterate over list of gists to find the gist with id equals to input id
-	//return that gist
+    //return that gist
 }
 
 window.onload = function () {
     fetchData();
-
-    generateGistHtml(document.getElementById('gist'));
 }
