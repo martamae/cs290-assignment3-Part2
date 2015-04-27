@@ -30,11 +30,28 @@ var generateGistHtml = function (gist) {
     //Create list
     var ul = document.getElementById('gistlist');
     var ulChild = document.createElement('ul');
-    ulChild.id = id;
     var liDesc = document.createElement('li');
     liDesc.innerText = description;
     var liURL = document.createElement('li');
     liURL.innerText = url;
+
+    var liButton = document.createElement('li');
+    var fbutton = document.createElement('input');
+    fbutton.type = "button";
+    fbutton.value = "+";
+    fbutton.setAttribute("gistId", gist.id);
+
+    fbutton.onclick = function () {
+        var gistId = this.getAttribute("gistId");
+        var favoriteGist = findById(gistId);
+
+        //Add gist to favorite list in local storage
+    }
+
+
+    //Append
+    liButton.appendChild(fbutton);
+    ulChild.appendChild(liButton);
     ulChild.appendChild(liDesc);
     ulChild.appendChild(liURL);
     ul.appendChild(ulChild);
