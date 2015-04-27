@@ -1,5 +1,6 @@
 var gistLog = [];
 var gistList = [];
+var faveGists = [];
 
 var fetchData = function () {
     var req = new XMLHttpRequest();
@@ -49,9 +50,7 @@ var generateGistHtml = function (gist) {
         var faveGist = findById(gistId);
 
         //Add gist to favorite list in local storage
-        var gists = [];
-        gists[0] = faveGist;
-        localStorage["faveGists"] = JSON.stringify(gists);
+        localStorage.setItem("faveGist", faveGists);
 
         //Add to favorite list
         var description = faveGist.description;
@@ -72,12 +71,18 @@ var generateGistHtml = function (gist) {
         rbutton.setAttribute("gistId", gistId);
 
         rbutton.onclick = function () {
-
-            console.log("Remove click");
-            //Add to gist list
-
-
             //Remove from favorite list 
+            var ulfRemove = this.parentNode.parentNode;
+            var ulfParent = this.parentNode.parentNode.parentNode;
+
+            ulfParent.removeChild(ulfRemove);
+
+            //Remove from local storage
+            localStorage.removeItem("faveGist");
+
+
+            //Creates html to add gist to gist list
+            generateGistHtml(faveGist);
         }
 
         //Append
@@ -112,6 +117,66 @@ var findById = function (id) {
     }
 }
 
+var printFaves = function () {
+    temp = localStorage.getItem("faveGist");
+    faveGists = JSON.parse(temp);
+    console.log(faveGists);
+}
+
 window.onload = function () {
+    //fetch data from gitHub
     fetchData();
+
+    //Favorite List
+    var favString = localStorage.getItem("faveGist"), favObj;
+    if (favString == null) {
+        favObj = { "faveGist": [] };
+        localStorage.setItem("faveGists", JSON.stringify(favObj));
+    }
+    else {
+        favObj = JSON.parse(localStorage.getItem("gistFave"));
+
+        printFaves();
+    }
+
+    //Add to favorite list
+    // var id = faveGist.id;
+    //   var description = faveGist.description;
+    //    var url = faveGist.url;
+
+    //Create favorite list
+    //  var ulf = document.getElementById('favegistlist');
+    //var ulfChild = document.createElement('ul');
+    //var lifDesc = document.createElement('li');
+    // lifDesc.innerText = description;
+    // var lifURL = document.createElement('li');
+    // lifURL.innerText = url;
+
+    // var lifButton = document.createElement('li');
+    // var rbutton = document.createElement('input');
+    // rbutton.type = "button";
+    // rbutton.value = "-";
+    // rbutton.setAttribute("gistId", id);
+
+    // rbutton.onclick = function () {
+    //Remove from favorite list 
+    //   var ulfRemove = this.parentNode.parentNode;
+    //  var ulfParent = this.parentNode.parentNode.parentNode;
+
+    // ulfParent.removeChild(ulfRemove);
+
+    //Remove from local storage
+    //localStorage.removeItem("faveGist");
+
+    //Creates html to add gist to gist list
+    // generateGistHtml(faveGist);
+    //   }
+
+    //Append
+    //  lifButton.appendChild(rbutton);
+    //ulfChild.appendChild(lifButton);
+    //ulfChild.appendChild(lifDesc);
+    //ulfChild.appendChild(lifURL);
+    //ulf.appendChild(ulfChild);
+
 }
