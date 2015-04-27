@@ -1,4 +1,6 @@
 var gistLog = [];
+var gistList = [];
+
 var fetchData = function () {
     var req = new XMLHttpRequest();
     if (!req) {
@@ -11,6 +13,7 @@ var fetchData = function () {
 
             for (var i = 0; i < gistLog.length; i++) {
                 generateGistHtml(gistLog[i]);
+                gistList[i] = gistLog[i];
             }
         }
     };
@@ -39,15 +42,56 @@ var generateGistHtml = function (gist) {
     var fbutton = document.createElement('input');
     fbutton.type = "button";
     fbutton.value = "+";
-    fbutton.setAttribute("gistId", gist.id);
+    fbutton.setAttribute("gistId", id);
 
     fbutton.onclick = function () {
         var gistId = this.getAttribute("gistId");
-        var favoriteGist = findById(gistId);
+        var faveGist = findById(gistId);
 
         //Add gist to favorite list in local storage
-    }
+        var gists = [];
+        gists[0] = faveGist;
+        localStorage["faveGists"] = JSON.stringify(gists);
 
+        //Add to favorite list
+        var description = faveGist.description;
+        var url = faveGist.url;
+
+        //Create favorite list
+        var ulf = document.getElementById('favegistlist');
+        var ulfChild = document.createElement('ul');
+        var lifDesc = document.createElement('li');
+        lifDesc.innerText = description;
+        var lifURL = document.createElement('li');
+        lifURL.innerText = url;
+
+        var lifButton = document.createElement('li');
+        var rbutton = document.createElement('input');
+        rbutton.type = "button";
+        rbutton.value = "-";
+        rbutton.setAttribute("gistId", gistId);
+
+        rbutton.onclick = function () {
+
+            console.log("Remove click");
+            //Add to gist list
+
+
+            //Remove from favorite list 
+        }
+
+        //Append
+        lifButton.appendChild(rbutton);
+        ulfChild.appendChild(lifButton);
+        ulfChild.appendChild(lifDesc);
+        ulfChild.appendChild(lifURL);
+        ulf.appendChild(ulfChild);
+
+        var ulRemove = this.parentNode.parentNode;
+        var ulParent = this.parentNode.parentNode.parentNode;
+
+        ulParent.removeChild(ulRemove);
+    }
 
     //Append
     liButton.appendChild(fbutton);
@@ -55,19 +99,17 @@ var generateGistHtml = function (gist) {
     ulChild.appendChild(liDesc);
     ulChild.appendChild(liURL);
     ul.appendChild(ulChild);
-
-    //gist will have the entire gist data that comes from the api,
-    // for the details check my pinned discussion about understanding JSON
-    //Add a button (code above goes here) next to each element and save
-    // the gist id in the html to be able to find it again, if you chose id,
-    // you need a function called findById(id) that takes a gist id and iterates
-    // over originalGistList to find the appropriate gist and returns it.
-    //This function will be used in the previous step function (fetchData)
 }
-    
-var findById = function(id) {
-	//iterate over list of gists to find the gist with id equals to input id
+
+var findById = function (id) {
+    //iterate over list of gists to find the gist with id equals to input id
     //return that gist
+
+    for (var i = 0; i < gistList.length; i++) {
+        if (id === gistList[i].id) {
+            return gistList[i];
+        }
+    }
 }
 
 window.onload = function () {
